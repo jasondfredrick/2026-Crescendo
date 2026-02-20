@@ -15,19 +15,19 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
 
-  private CommandXboxController driver;
+  private CommandPS5Controller driver;
 
   private Swerve swerve;
 
   private Swerve_Commands swerve_Commands;
 
   public RobotContainer() {
-    driver = new CommandXboxController(0);
+    driver = new CommandPS5Controller(0);
     swerve = new Swerve(new File(Filesystem.getDeployDirectory(),"swerve"));
 
     swerve_Commands = new Swerve_Commands(swerve);
@@ -41,16 +41,16 @@ public class RobotContainer {
     swerve.setDefaultCommand(swerve_Commands.drive(
       () -> getAllianceInvert()*-MathUtil.applyDeadband(driver.getLeftY(), Swerve_Constants.LY_Deadband),
       () -> getAllianceInvert()*-MathUtil.applyDeadband(driver.getLeftX(), Swerve_Constants.LX_Deadband),
-      () -> -MathUtil.applyDeadband(driver.getRightX(), Swerve_Constants.RX_Deadband),
+      () -> MathUtil.applyDeadband(driver.getRightX(), Swerve_Constants.RX_Deadband),
       () -> true
     ));
 
-    driver.y()
+    driver.circle()
     .onTrue(swerve_Commands.zeroGyro());
 
     // Other Bindings
 
-    driver.back()
+    driver.touchpad()
     .onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
     
     //Swerve Invert

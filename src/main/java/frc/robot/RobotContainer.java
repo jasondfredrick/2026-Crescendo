@@ -12,22 +12,23 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
 
-  private CommandPS5Controller driver;
+  private CommandXboxController driver;
 
   private Swerve swerve;
 
   private Swerve_Commands swerve_Commands;
 
   public RobotContainer() {
-    driver = new CommandPS5Controller(0);
+    driver = new CommandXboxController(0);
     swerve = new Swerve(new File(Filesystem.getDeployDirectory(),"swerve"));
 
     swerve_Commands = new Swerve_Commands(swerve);
@@ -45,12 +46,12 @@ public class RobotContainer {
       () -> true
     ));
 
-    driver.circle()
+    driver.b()
     .onTrue(swerve_Commands.zeroGyro());
 
     // Other Bindings
 
-    driver.touchpad()
+    driver.back()
     .onTrue(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
     
     //Swerve Invert

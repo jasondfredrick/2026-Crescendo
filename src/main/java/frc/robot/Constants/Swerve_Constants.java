@@ -1,10 +1,11 @@
 package frc.robot.Constants;
 
+
 public class Swerve_Constants { 
     // Deadbands
-    public static final double LX_Deadband = 0.1;
-    public static final double LY_Deadband = 0.1;
-    public static final double RX_Deadband = 0.1;
+    public static final double LX_Deadband = 0.05;
+    public static final double LY_Deadband = 0.05;
+    public static final double RX_Deadband = 0.01;
 
     // Physics
     public static final double maxVelocity = 4.5;

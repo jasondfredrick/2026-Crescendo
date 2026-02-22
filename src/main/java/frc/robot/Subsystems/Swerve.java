@@ -35,8 +35,8 @@ public class Swerve extends SubsystemBase {
             throw new RuntimeException(e);
         }
 
-        turnController = new PIDController(Swerve_Constants.turnKP, Swerve_Constants.turnKI, Swerve_Constants.turnKD);
-        driveController = new PIDController(Swerve_Constants.driveKP, Swerve_Constants.driveKI, Swerve_Constants.driveKD);
+        turnController = new PIDController(Swerve_Constants.turnKP.get(), Swerve_Constants.turnKI.get(), Swerve_Constants.turnKD.get());
+        driveController = new PIDController(Swerve_Constants.driveKP.get(), Swerve_Constants.driveKI.get(), Swerve_Constants.driveKD.get());
         turnController.setTolerance(0.02, 0.01);
         driveController.setTolerance(0.05, 0.01);
 
